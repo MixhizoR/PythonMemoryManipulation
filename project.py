@@ -3,14 +3,12 @@ import time
 
 pymem=Pymem("ac_client.exe")
 
-def main():
+def MemoryChanger(userInput):
     baseaddress = pymem.base_address + 0x18AC00
     ammo_pointer = GetAddress(baseaddress, [0x140])
-    while True:
-        ammo = pymem.read_int(ammo_pointer)
-        print(ammo)
-        pymem.write_int(ammo_pointer, 99)
-        time.sleep(0.4)
+    pymem.write_int(ammo_pointer, userInput)
+    ammo = pymem.read_int(ammo_pointer)
+    return ammo
 
 def GetAddress(baseaddress, offsets):
     
@@ -23,10 +21,3 @@ def GetAddress(baseaddress, offsets):
             
         else:
             return baseaddress+offset
-            
-            
-            
-    
-
-if __name__=="__main__":
-    main()
