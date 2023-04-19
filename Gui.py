@@ -1,12 +1,14 @@
-import PySimpleGUI as sg       
-from project import *               
+import PySimpleGUI as sg
+from project import *
 
-layout = [  [sg.Text("Change your ammo")],     
-            [sg.Input()],
-            [sg.Button('Ok')]]
+layout = [  [sg.Text("Change your ammo"),sg.Input(key='-AMMO-',default_text='30'),sg.Checkbox("Freeze the value",key="-FREEZE-",default=False)]]
 
-window = sg.Window('Window Title', layout)     
+window = sg.Window('MemoryChanger', layout)
 
 while True:
-    event, value = window.read()                   
-    MemoryChanger(int(value[0]))     
+    event, value = window.read(timeout=100)
+    if value['-FREEZE-'] == True:
+        MemoryChanger(value['-AMMO-'])
+        
+    if event == sg.WIN_CLOSED:
+        break

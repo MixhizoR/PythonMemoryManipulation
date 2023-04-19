@@ -1,14 +1,15 @@
 from pymem import Pymem
-import time
 
 pymem=Pymem("ac_client.exe")
 
 def MemoryChanger(userInput):
+    if userInput == ' ':
+        userInput = 0
+    else:
+        userInput = int(userInput)
     baseaddress = pymem.base_address + 0x18AC00
     ammo_pointer = GetAddress(baseaddress, [0x140])
     pymem.write_int(ammo_pointer, userInput)
-    ammo = pymem.read_int(ammo_pointer)
-    return ammo
 
 def GetAddress(baseaddress, offsets):
     
